@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import {
-  withStyles,
-} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import "./todo.css";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Error from "../alert/error";
-import EditTask from "../edit/editTask";
 
 const styles = {
   centerContainer: {
@@ -176,6 +173,9 @@ export default class Todo extends Component {
       tasks: this.state.tasks.filter((el) => el.isChecked === false),
     });
   };
+  handleErrorCallback = (childError) => {
+    this.setState({ error: childError});
+  };
 
   render() {
     return (
@@ -262,8 +262,13 @@ export default class Todo extends Component {
               </Button>
             </div>
           )}
-          
-          {this.state.error && <Error error = {this.state.error}/>}
+
+          {this.state.error && (
+            <Error
+              error={this.state.error}
+              setParentError={this.handleErrorCallback}
+            />
+          )}
         </div>
         <ul>
           {this.state.tasks.map((task, index) => (

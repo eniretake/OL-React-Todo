@@ -1,0 +1,22 @@
+ul {
+  list-style: none;
+  padding: 0;
+  width: 80%;
+  margin: 24px auto;
+}
+li {
+  padding: 5px 10px;
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.btnWrapper {
+  margin-left: 20px;
+  width: 50%;
+  display: inline-flex;
+  justify-content: space-between;
+}

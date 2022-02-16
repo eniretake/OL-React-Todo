@@ -25,7 +25,7 @@ export default function Error(props) {
         <DialogTitle id="alert-dialog-title">Error</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          {props.error}
+            {props.error}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -1,35 +1,10 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import "./todo.css";
+import "./Todo.css";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import Error from "../alert/error";
-
-const styles = {
-  centerContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  DeleteButtons: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    marginTop: "25px",
-  },
-  Container: {
-    margin: "70px auto 10px",
-    width: "700px",
-  },
-};
-const ColorButton = withStyles((theme) => ({
-  root: {
-    minWidth: "40px",
-    padding: "6px 0px 4px",
-    fontSize: "10px",
-    maxHeight: "29px",
-  },
-}))(Button);
+import Error from "../Alert/Error";
+import { ColorButton } from "../Utilities/ColorButton";
 
 export default class Todo extends Component {
   constructor(props) {
@@ -83,7 +58,6 @@ export default class Todo extends Component {
   };
 
   removeTask = (index) => {
-    // e.preventDefault();
     this.setState({
       tasks: this.state.tasks.filter((el, i) => i !== index),
     });
@@ -95,7 +69,6 @@ export default class Todo extends Component {
     this.setState({
       tasks: tempTasks,
     });
-    console.log(this.state.tasks[index].isDone);
   };
 
   checkTask = (index) => {
@@ -104,30 +77,9 @@ export default class Todo extends Component {
     this.setState({
       tasks: tempTasks,
     });
-    console.log(this.state.tasks[index].isChecked);
   };
 
-  //თუ არ შედის ტასკს რატომ ააფდეითებს
-  //
   editTask = (e) => {
-    // let tempTasks = this.state.tasks.slice();
-    // console.log(this.state.tasks);
-    // setTimeout(() => {
-    //   // let tempTasks = this.state.tasks.slice();
-    //   tempTasks[this.state.editTaskIndex].name = this.state.editTaskValue;
-    //   console.log(this.state.tasks);
-    //   if (this.isValidInput(this.state.editTaskValue)) {
-    //     console.log("shemodis");
-    //     // this.setState({
-    //     //   editMode: false,
-    //     //   tasks: tempTasks,
-    //     //   error: "",
-    //     // });
-    //   }
-    // }, 2000);
-
-    // console.log(this.state.editMode);
-
     const tempTasks = this.state.tasks.map((task, index) => {
       if (
         index === this.state.editTaskIndex &&
@@ -179,8 +131,8 @@ export default class Todo extends Component {
 
   render() {
     return (
-      <div style={styles.Container}>
-        <form style={styles.centerContainer}>
+      <div className="container">
+        <form className="centerContainer">
           <Input
             type="text"
             value={this.state.inputTaskValue}
@@ -210,7 +162,7 @@ export default class Todo extends Component {
             Clear
           </Button>
         </form>
-        <div style={styles.DeleteButtons}>
+        <div className="deleteButtons">
           <Button
             variant="contained"
             onClick={this.deleteAll}
@@ -244,7 +196,7 @@ export default class Todo extends Component {
         </div>
         <div className="conditional">
           {this.state.editMode && (
-            <div style={styles.centerContainer} className="popup">
+            <div className="centerContainer">
               <Input
                 type="text"
                 value={this.state.editTaskValue}

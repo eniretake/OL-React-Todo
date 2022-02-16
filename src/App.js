@@ -1,4 +1,4 @@
-import Todo from "./components/todoWithHooks/todo/todo";
+import Todo from "./components/TodoWithHooks/Todo/Todo";
 
 function App() {
   return (

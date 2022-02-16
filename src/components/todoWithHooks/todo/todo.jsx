@@ -1,35 +1,11 @@
-import React, { Component, useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import "./todo.css";
+import React, { useState } from "react";
+import "./Todo.css";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import Error from "../alert/error";
-
-const styles = {
-  centerContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  DeleteButtons: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    marginTop: "25px",
-  },
-  Container: {
-    margin: "70px auto 10px",
-    width: "700px",
-  },
-};
-const ColorButton = withStyles((theme) => ({
-  root: {
-    minWidth: "40px",
-    padding: "6px 0px 4px",
-    fontSize: "10px",
-    maxHeight: "29px",
-  },
-}))(Button);
+import Error from "../Alert/Error";
+import { ColorButton } from "../Utilities/ColorButton";
+import EditTask from "../Edit/EditTask";
 
 export default function Todo() {
   const [id, setId] = useState(0);
@@ -73,20 +49,15 @@ export default function Todo() {
 
   const markAsDone = (index) => {
     let tempTasks = [...tasks];
-    // let i = tempTasks.findIndex((el) => el.id === index);
     tempTasks[index].isDone = !tempTasks[index].isDone;
     setTasks(tempTasks);
-    console.log(tasks[index].isDone);
   };
 
   const checkTask = (index) => {
     let tempTasks = [...tasks];
-    // let i = tempTasks.findIndex((el) => el.id === index);
     tempTasks[index].isChecked = !tempTasks[index].isChecked;
     setTasks(tempTasks);
-    console.log(tasks[index].isChecked);
   };
-
 
   const editTask = (e) => {
     const tempTasks = tasks.map((task, index) => {
@@ -117,10 +88,14 @@ export default function Todo() {
   const handleErrorCallback = (childError) => {
     setError(childError);
   };
+  const handleEditCallback = (child) => {
+    setEditMode(false);
+    setError(child);
+  };
 
   return (
-    <div style={styles.Container}>
-      <form style={styles.centerContainer}>
+    <div className="container">
+      <form className="centerContainer">
         <Input
           type="text"
           value={inputValue}
@@ -150,7 +125,7 @@ export default function Todo() {
           Clear
         </Button>
       </form>
-      <div style={styles.DeleteButtons}>
+      <div className="deleteButtons">
         <Button
           variant="contained"
           onClick={() => setTasks([])}
@@ -184,29 +159,21 @@ export default function Todo() {
       </div>
       <div className="conditional">
         {editMode && (
-          <div style={styles.centerContainer} className="popup">
-            <Input
-              type="text"
-              value={editValue}
-              onChange={(e) => setEditValue(e.target.value)}
-            />
-            <Button onClick={editTask}>Edit</Button>
-            <Button
-              onClick={() => {
-                setEditMode(false);
-                setError("");
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
+          <EditTask
+            editValue={editValue}
+            handleChange={setEditValue}
+            editTask={editTask}
+            handleEdit={handleEditCallback}
+          />
         )}
-
-        {error && <Error error={error} setParentError={handleErrorCallback} />}
+        <div>
+          {error && (
+            <Error error={error} setParentError={handleErrorCallback} />
+          )}
+        </div>
       </div>
       <ul>
         {tasks.map((task, index) => (
-          // <div >
           <li key={"task" + index + id} className={task.isDone ? "done" : ""}>
             <div>
               <Checkbox

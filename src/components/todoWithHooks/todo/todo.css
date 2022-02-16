@@ -15,9 +15,28 @@ li {
   flex-wrap: wrap;
 }
 
-li.done{
-  background-color: #D4E157;
+li.done {
+  background-color: #d4e157;
 }
+
+.container {
+  margin: 70px auto 10px;
+  width: 700px;
+}
+
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+}
+
+.deleteButtons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25px;
+}
+
 .btnWrapper {
   margin-left: 20px;
   width: 50%;
